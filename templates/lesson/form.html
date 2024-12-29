@@ -1,0 +1,168 @@
+{% extends 'common/base.html' %}
+{% load static widget_tweaks crispy_forms_tags %}
+
+{% block css %}
+  <!-- for ckeditor  -->
+  <link rel="stylesheet" type="text/css" href="{% static 'ckeditor/ckeditor.css' %}" />
+  <!-- for ckeditor  -->
+
+  <!-- for datepicker  -->
+  <link rel="stylesheet" href="{% static 'assets/css/jquery-ui.css' %}" />
+  <!-- for datepicker  -->
+  
+  <!-- for select 2  -->
+  <link rel="stylesheet" href="{% static 'assets/css/select2.min.css' %}">
+  {{ form.media.css }} 
+  <!-- for select 2  -->
+
+  <style>
+    .select2-container--default .select2-selection--single {
+      height: 41px !important;
+      padding: 11px 16px;
+      line-height: 1.3;
+      border-radius: 6px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: #444;
+      line-height: 19px;
+      padding-left: 0px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+      margin-left: -10px;
+      margin-top: 5px;
+    }
+    
+    .form-group .help {
+      display: inline-block;
+      margin-top: 5px;
+    }
+  </style>
+
+{% endblock %}
+
+{% block title %}
+  {{ current_page }}
+{% endblock %}
+
+{% block main %}
+  <div class="row">
+
+    <div class="col-12">
+
+      <div class="card shadow mb-4">
+
+        <div class="card-header pb-0 d-flex justify-content-between">
+          {% if form.instance.pk %}
+            <h2>Update {{ page_name }}</h2>
+          {% else %}
+            <h2>Create A New {{ page_name }}</h2>
+          {% endif %}
+        </div>
+
+        <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+        <div class="card-body">
+
+          <form method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">{{ form.title|as_crispy_field }}</div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">{{ form.course|as_crispy_field }}</div>
+              </div>
+            </div>
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">{{ form.video_url|as_crispy_field }}</div>
+              </div>
+            </div>
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">{{ form.description|as_crispy_field }}</div>
+              </div>
+            </div>
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">{{ form.content|as_crispy_field }}</div>
+              </div>
+            </div>
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <button type="submit" class="btn btn-primary">Save</button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+    
+  </div>
+{% endblock %}
+
+{% block script %}
+
+  <!-- for ckeditor  -->
+  <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+  <!-- for ckeditor  -->
+
+  <!-- for datepicker  -->
+  <script src="{% static 'assets/js/jquery-ui.js' %}"></script>
+  <!-- for datepicker  -->
+
+  <!-- for select 2  -->
+  {{ form.media.js }}
+  <!-- for select 2  -->
+  
+  <script>
+    CKEDITOR.replace('id_description')
+    CKEDITOR.replace('id_content')
+
+    function calculate_duration() {
+      var startDate = $('#id_start_date').val();  
+      var endDate = $('#id_end_date').val();      
+
+      if (startDate && endDate) {
+        var start = new Date(startDate);
+        var end = new Date(endDate);
+        var timeDiff = end - start;
+        if (timeDiff >= 0) {
+          var days = timeDiff / (1000 * 3600 * 24);
+          $('#id_duration_0').val(days + 1);
+          $('#id_duration').val(days + 1);
+        } else {
+          alert("End date must be later than start date.");
+        }
+      }
+    }
+    
+    $(document).ready(function () {
+      $('#image-clear_id').hide()
+      $("label[for='image-clear_id']").hide()
+      $('.datepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true
+      })
+      
+      
+    })
+  </script>
+{% endblock %}

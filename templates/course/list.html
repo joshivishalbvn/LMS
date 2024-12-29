@@ -1,0 +1,82 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block title %} 
+    {{current_page}} List
+{% endblock title %}
+
+{% block main %}
+<div class="row">
+    <div class="col-12">
+      <div class="card shadow mb-4">
+        <div class="card-header pb-0 d-flex justify-content-between">
+          <h6>{{ table_name }} Table</h6>
+          <a href="{{create_url}}">
+            <button type="button" class="btn btn-primary">Add</button>
+          </a>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive p-2">
+            <table class="table table-striped border-top border-bottom" id="course_table">
+              <thead>
+                <tr>
+                  <th>SR NO.</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Instructor</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+  
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock main %}
+
+{% block script %}
+
+<!-- for sweet alert for deleting object  -->
+<script src="{% static 'assets/js/delete_element.js' %}"></script>
+<!-- for sweet alert for deleting object  -->
+
+<!-- for datatable  -->
+<script src="{% static 'assets/datatables/initialize_datatables.js' %}"></script>
+<script src="{% static 'assets/datatable/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/datatable/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+  var element_table_id = '#course_table'
+  var role = true;
+  var i = 1;
+  var table_id = element_table_id
+  var filter_id = $("#id_company,#id_role")
+  var to_center = "_all"
+  var invisible_columns = []
+  var order_false = [-1]
+  var url = '{% url "course:course_list_ajax" %}'
+  var columns = [
+    { data: 'id', name: 'id' },
+    { data: 'name', name: 'name' },
+    { data: 'category', name: 'category' },
+    { data: 'instructor', name: 'instructor' },
+    { data: 'actions', name: 'actions' }
+  ]
+
+  function set_filters() {
+    var data = {}
+    return data;
+  }
+
+  initialize_datatables();
+
+  $(document).ready(function (){
+    $("#course_table_filter").addClass("mb-2")
+  });
+</script>
+<!-- for datatable  -->
+
+{% endblock script %}

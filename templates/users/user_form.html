@@ -1,0 +1,97 @@
+{% extends 'common/base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block title %}
+  {{ current_page }}
+{% endblock %}
+
+{% block main %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow mb-4">
+        <div class="card-header pb-0 d-flex justify-content-between">
+          {% if form.instance.pk %}
+            <h2>Update {{ page_name }}</h2>
+          {% else %}
+            <h2>Create A New {{ page_name }}</h2>
+          {% endif %}
+        </div>
+
+        <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px; " />
+
+        <div class="card-body">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">{{ form.first_name|as_crispy_field }}</div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">{{ form.last_name|as_crispy_field }}</div>
+              </div>
+            </div>
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">{{ form.username|as_crispy_field }}</div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">{{ form.email|as_crispy_field }}</div>
+              </div>
+            </div>
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">{{ form.mobile|as_crispy_field }}</div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group d-flex justify-content-between">
+                  {% if form.instance.image %}
+                    <div class="current-image avatar avatar-xl position-relative">
+                      <img src="{{ form.instance.image.url }}" alt="Selected Image" style="max-width: 80px; max-height: 80px;" />
+                    </div>
+                  {% endif %}
+                  {{ form.image|as_crispy_field }}
+                </div>
+              </div>
+            </div>
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  {{ form.captcha }}
+                  {% if form.captcha.errors %}
+                    <div class="error">{{ form.captcha.errors }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <hr style="border: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;" />
+
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+    $(document).ready(function () {
+      $('#image-clear_id').hide()
+      $("label[for='image-clear_id']").hide()
+    })
+  </script>
+{% endblock %}

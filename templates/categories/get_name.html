@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="d-flex align-items-center">
+    {% if obj.image %}
+        <img src="{{ obj.image.url }}" alt="User Image" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 10px;">
+    {% else %}
+        <img src="{% static 'images/default-avatar.png' %}" alt="User Image" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 10px;">
+    {% endif %}
+    
+    <span>{{ obj.name }}</span>
+</div>

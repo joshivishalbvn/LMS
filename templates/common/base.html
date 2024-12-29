@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="{%  static 'assets/img/apple-icon.png' %}">
+  <link rel="icon" type="image/png" href="{%  static 'assets/img/favicon.png' %}">
+  <title>
+    {% block title %} 
+    Learning Management System
+    {% endblock title %}
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="{%  static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
+  
+  <link href="{%  static 'assets/css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="{%  static 'assets/css/nucleo-svg.css' %}" rel="stylesheet" />
+  
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{%  static 'assets/css/soft-ui-dashboard.css' %}" rel="stylesheet" />
+
+  <!-- for toast -->
+	<link href="{%  static 'assets/css/toast.css' %}" rel="stylesheet">
+  <!-- for toast -->
+
+  <!-- for datatable -->
+  <link rel="stylesheet" href="{% static 'assets/datatable/jquery.dataTables.min.css' %}">
+  <!-- for datatable -->
+
+  {% block css %}
+  
+  {% endblock css %}
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+
+    <!-- Sidebar -->
+    {% block sidebar %}
+    {% include 'common/sidebar.html' %}
+    {% endblock sidebar %}
+    <!-- End Sidebar -->
+  
+  <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+
+    <!-- Navbar -->
+    {% block navbar %}
+    {% include 'common/navbar.html' %}
+    {% endblock navbar%}
+    
+      {% block profile_bg %}
+    
+      {% endblock profile_bg %}
+    <!-- End Navbar -->
+
+    <div class="container-fluid py-4">
+        
+        <!-- Main -->
+        {% block main %}
+        
+        {% endblock main %}
+        <!-- Main -->
+        
+        <!--   Footer  -->
+        {% block footer %}
+        {% include 'common/footer.html' %}
+        {% endblock footer %}
+        <!--   Footer  -->
+
+    </div>
+
+  </main>
+
+<!--   Ui Conf   -->
+{% comment %} {% include 'common/ui_conf.html' %} {% endcomment %}
+<!--   Ui Conf    -->
+
+<!--   Core JS Files   -->
+
+<!-- to get csrf token for post request  -->
+<script src="{%  static 'assets/js/get_csrf.js' %}"></script>
+<!-- for to get csrf token for post request  -->
+
+<script src="{%  static 'cdns/jquery.min.js' %}"></script>
+
+<script src="{%  static 'assets/js/core/popper.min.js' %}"></script>
+
+<script src="{%  static 'assets/js/core/bootstrap.min.js' %}"></script>
+
+<script src="{%  static 'assets/js/plugins/perfect-scrollbar.min.js' %}"></script>
+
+<script src="{%  static 'assets/js/plugins/smooth-scrollbar.min.js' %}"></script>
+
+<script src="{%  static 'assets/js/plugins/chartjs.min.js' %}"></script>
+
+<!-- for sweetalert  -->
+<script src="{% static 'assets/js/sweetalert2011.min.js' %}"></script>
+<!-- for sweetalert  -->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- for toast message  -->
+<script src="{%  static 'assets/js/toast.js' %}"></script>
+<script>
+'{% if messages %}'
+  '{% for message in messages %}'
+      '{% if 'success' in message.tags %}'
+          $.toast({
+              //heading: '{{message.title}}',
+              text: '{{message.message}}',
+              position: 'bottom-right',
+              stack: false,
+              icon: 'success',                    
+          })
+      '{% endif %}'
+      '{% if 'warning' in message.tags %}'
+          $.toast({
+              //heading: 'UPDATED!',
+              text: '{{message}}',
+              position: 'bottom-right',
+              stack: false,
+              icon: 'warning'
+          })
+      '{% endif %}'
+      '{% if 'error' in message.tags %}'
+          $.toast({
+              //heading: 'UPDATED!',
+              text: '{{message}}',
+              position: 'bottom-right',
+              stack: false,
+              icon: 'error'
+          })
+      '{% endif %}'
+  '{% endfor %}'
+'{% endif %}'
+</script>
+<!-- for toast message -->
+
+{% block script %}
+
+{% endblock script %}
+
+</body>
+
+</html>
